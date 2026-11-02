@@ -1,39 +1,820 @@
-<!DOCTYPE html> <html 
-lang="es"> <head>
-    <meta charset="UTF-8"> 
-    <meta name="viewport" 
-    content="width=device-width, 
-    initial-scale=1.0"> 
-    <title>Mi App 
-    Multiplataforma</title> 
-    <style>
-        body { font-family: 
-        sans-serif; display: 
-        flex; justify-content: 
-        center; align-items: 
-        center; height: 100vh; 
-        margin: 0; 
-        background-color: 
-        #f0f0f0; }
-        .card { background: 
-        white; padding: 2rem; 
-        border-radius: 15px; 
-        shadow: 0 4px 6px 
-        rgba(0,0,0,0.1); 
-        text-align: center; } 
-        button { background: 
-        #007bff; color: white; 
-        border: none; padding: 
-        10px 20px; 
-        border-radius: 5px; 
-        cursor: pointer; }
-    </style> </head> <body> 
-    <div class="card">
-        <h1>Hola desde 
-        Termux</h1> <p>Esta app 
-        se verá genial en PC y 
-        Celular.</p> <button 
-        onclick="alert('¡Funciona!')">Probar 
-        botón</button>
-    </div> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiminalShock - Red Liminal & Dreamcore</title>
+  <!-- FontAwesome para Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts: VT323 (Retro) & Outfit (Moderno) -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=VT323&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --bg-dark: #030811;
+      --bg-card: rgba(10, 25, 47, 0.7);
+      --accent-cyan: #00f0ff;
+      --accent-blue: #0077ff;
+      --glow-blue: rgba(0, 240, 255, 0.4);
+      --text-main: #e2f1ff;
+      --text-dim: #7b9acc;
+      --border-glow: rgba(0, 240, 255, 0.25);
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(0, 119, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    /* Fondo con rejilla liminal y nubes */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      z-index: -2;
+    }
+
+    /* Header & Navegación */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 8, 17, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-glow);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.1);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .eye-icon {
+      font-size: 1.8rem;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 12px var(--accent-cyan);
+      animation: pulseEye 3s infinite alternate;
+    }
+
+    @keyframes pulseEye {
+      0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent-cyan)); }
+      100% { transform: scale(1.15); filter: drop-shadow(0 0 10px var(--accent-cyan)); }
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, #ffffff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    /* Motor de Búsqueda Principal */
+    .search-box {
+      position: relative;
+      width: 40%;
+      max-width: 500px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.7rem 1.2rem 0.7rem 2.8rem;
+      border-radius: 30px;
+      border: 1px solid var(--border-glow);
+      background: rgba(10, 25, 47, 0.8);
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px var(--glow-blue), inset 0 0 5px var(--accent-cyan);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent-cyan);
+    }
+
+    /* Botones de Cabecera */
+    .header-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-liminal {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 119, 255, 0.2));
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-liminal:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 20px var(--accent-cyan);
+    }
+
+    /* Layout Principal */
+    .main-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Banner Estilo Ventana Retro Liminal */
+    .hero-window {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--glow-blue);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .window-bar {
+      background: linear-gradient(90deg, #002b5c, #0055a5);
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .win-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .win-close { background: #ff5f56; }
+    .win-min { background: #ffbd2e; }
+    .win-max { background: #27c93f; }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 2.5rem;
+      gap: 2rem;
+      align-items: center;
+      background: radial-gradient(circle at top right, rgba(0, 240, 255, 0.1), transparent);
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .hero-text p {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .hero-eye-display {
+      position: relative;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed var(--border-glow);
+      overflow: hidden;
+    }
+
+    .giant-eye {
+      font-size: 8rem;
+      color: var(--accent-cyan);
+      filter: drop-shadow(0 0 25px var(--accent-cyan));
+      animation: floatEye 4s ease-in-out infinite;
+    }
+
+    @keyframes floatEye {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    /* Pestañas de Filtro */
+    .tabs-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-glow);
+      padding-bottom: 0.8rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 6px;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      text-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    /* Grid de Videos */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .video-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 25px var(--glow-blue);
+    }
+
+    .thumbnail-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .thumbnail-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      transition: transform 0.5s ease, opacity 0.3s;
+    }
+
+    .video-card:hover .thumbnail-container img {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    .play-btn-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 55px;
+      height: 55px;
+      background: rgba(0, 240, 255, 0.2);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.3rem;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 15px var(--accent-cyan);
+      transition: all 0.3s;
+    }
+
+    .video-card:hover .play-btn-overlay {
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+
+    .video-info {
+      padding: 1.2rem;
+    }
+
+    .video-tag {
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .video-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .video-author {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Modal de Reproducción */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(3, 8, 17, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-cyan);
+      width: 100%;
+      max-width: 900px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 40px var(--glow-blue);
+      position: relative;
+    }
+
+    .modal-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      background: #000;
+    }
+
+    .modal-video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      border: none;
+    }
+
+    .modal-details {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .close-modal:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 15px var(--accent-cyan);
+    }
+
+    /* Footer Comercial / Editable */
+    footer {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border-glow);
+      background: rgba(3, 8, 17, 0.9);
+      padding: 3rem 2rem 1.5rem 2rem;
+    }
+
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-col a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-glow);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--accent-cyan);
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 15px var(--accent-cyan);
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(0, 240, 255, 0.1);
+      padding-top: 1.5rem;
+    }
+
+    /* Responsividad */
+    @media (max-width: 768px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .search-box { width: 100%; order: 3; margin-top: 1rem; }
+      header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <i class="fa-solid fa-eye eye-icon"></i>
+      <span class="logo-text">LiminalShock</span>
+    </div>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Explorar Niveles, Backrooms, Dreamcore..." onkeyup="filterVideos()" />
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-liminal" onclick="randomLiminalVideo()">
+        <i class="fa-solid fa-shuffle"></i> Anomalía Aleatoria
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+
+    <!-- Hero Window Style -->
+    <div class="hero-window">
+      <div class="window-bar">
+        <span>C:\LIMINAL_ARCHIVES\NIVEL_0.EXE</span>
+        <div class="window-controls">
+          <span class="win-btn win-min"></span>
+          <span class="win-btn win-max"></span>
+          <span class="win-btn win-close"></span>
+        </div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Explora las Sombras de la Realidad</h1>
+          <p>Bienvenido al archivo de video liminal más profundo. Navega por grabaciones de espacios infinitos, pasillos retro de Windows y experiencias Dreamcore.</p>
+          <button class="btn-liminal" onclick="playFeatured()">
+            <i class="fa-solid fa-play"></i> Ver Transmisión Destacada
+          </button>
+        </div>
+        <div class="hero-eye-display">
+          <i class="fa-regular fa-eye giant-eye"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pestañas -->
+    <div class="tabs-container">
+      <button class="tab-btn active" onclick="filterTab('all')">Todos los Archivos</button>
+      <button class="tab-btn" onclick="filterTab('backrooms')">Backrooms</button>
+      <button class="tab-btn" onclick="filterTab('dreamcore')">Dreamcore</button>
+      <button class="tab-btn" onclick="filterTab('windows')">Nostalgia Retro</button>
+    </div>
+
+    <!-- Video Grid -->
+    <div class="video-grid" id="videoGrid">
+      <!-- Los videos se cargan dinámicamente mediante JS -->
+    </div>
+
+  </div>
+
+  <!-- Modal Reproductor -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeVideo()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-video-wrapper">
+        <iframe id="youtubeIframe" src="" allowfullscreen allow="autoplay"></iframe>
+      </div>
+      <div class="modal-details">
+        <div>
+          <h2 id="modalTitle" style="color: #fff; margin-bottom: 5px;">Título del Video</h2>
+          <span id="modalCategory" class="video-tag">CATEGORÍA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer con Redes Editables -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo-container" style="margin-bottom: 1rem;">
+          <i class="fa-solid fa-eye eye-icon"></i>
+          <span class="logo-text">LiminalShock</span>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.5;">
+          Plataforma de contenido audiovisual interactiva especializada en la estética Liminal Space, Nostalgia Cyberpunk y Dreamcore.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#">Explorar Niveles</a></li>
+          <li><a href="#">Archivo de Anomalías</a></li>
+          <li><a href="#">Servidores Liminales</a></li>
+          <li><a href="#">Documentación</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal / Licencia</h4>
+        <ul>
+          <li><a href="#">Términos del Servicio</a></li>
+          <li><a href="#">Política de Privacidad</a></li>
+          <li><a href="#">Licencia Comercial</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Redes Sociales</h4>
+        <p style="color: var(--text-dim); font-size: 0.85rem;">Conéctate con las transmisiones oficiales:</p>
+        <div class="social-links">
+          <!-- Edita los atributos href para redireccionar a tus páginas oficiales -->
+          <a href="https://twitter.com" target="_blank" title="Twitter / X"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2026 LiminalShock Network. Todos los derechos reservados. Plantilla lista para personalización y venta.
+    </div>
+  </footer>
+
+  <script>
+    // Base de datos de videos Liminales / Backrooms / Dreamcore (Links reales de YouTube)
+    const videosData = [
+      {
+        id: "wBg472Tsm0s", // Kane Pixels Backrooms
+        title: "The Backrooms (Found Footage)",
+        author: "Kane Pixels",
+        category: "backrooms",
+        tag: "Backrooms Nivel 0",
+        thumb: "https://img.youtube.com/vi/wBg472Tsm0s/hqdefault.jpg"
+      },
+      {
+        id: "Lsy4JdQn2mo",
+        title: "Dreamcore / Weirdcore Ambience & Visuals",
+        author: "Liminal Realm",
+        category: "dreamcore",
+        tag: "Dreamcore Surreal",
+        thumb: "https://img.youtube.com/vi/Lsy4JdQn2mo/hqdefault.jpg"
+      },
+      {
+        id: "M0X_8q_0Ols",
+        title: "Windows XP / 7 Nostalgic Liminal Spaces",
+        author: "Cyber Space",
+        category: "windows",
+        tag: "Nostalgia Retro",
+        thumb: "https://img.youtube.com/vi/M0X_8q_0Ols/hqdefault.jpg"
+      },
+      {
+        id: "H4dGqyUmsmY",
+        title: "The Backrooms - Informational Video",
+        author: "Kane Pixels",
+        category: "backrooms",
+        tag: "Backrooms Archivo",
+        thumb: "https://img.youtube.com/vi/H4dGqyUmsmY/hqdefault.jpg"
+      },
+      {
+        id: "hJmsB1FqTBA",
+        title: "Liminal Spaces that feel like a Dream",
+        author: "Liminal Mind",
+        category: "dreamcore",
+        tag: "Espacio Liminal",
+        thumb: "https://img.youtube.com/vi/hJmsB1FqTBA/hqdefault.jpg"
+      },
+      {
+        id: "x2zW40n7zZ0",
+        title: "Old PC Aesthetics & Windows Skies",
+        author: "Retro Vibe",
+        category: "windows",
+        tag: "Estética Retro",
+        thumb: "https://img.youtube.com/vi/x2zW40n7zZ0/hqdefault.jpg"
+      }
+    ];
+
+    const videoGrid = document.getElementById('videoGrid');
+    const searchInput = document.getElementById('searchInput');
+    const videoModal = document.getElementById('videoModal');
+    const youtubeIframe = document.getElementById('youtubeIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCategory = document.getElementById('modalCategory');
+
+    // Cargar Videos en el Grid
+    function renderVideos(list) {
+      videoGrid.innerHTML = '';
+      if(list.length === 0) {
+        videoGrid.innerHTML = `<p style="color: var(--text-dim); grid-column: 1/-1; text-align: center; padding: 3rem;">No se encontraron señalizaciones liminales...</p>`;
+        return;
+      }
+
+      list.forEach(video => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.onclick = () => openVideo(video);
+
+        card.innerHTML = `
+          <div class="thumbnail-container">
+            <img src="${video.thumb}" alt="${video.title}" />
+            <div class="play-btn-overlay">
+              <i class="fa-solid fa-play"></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <span class="video-tag">${video.tag}</span>
+            <h3 class="video-title">${video.title}</h3>
+            <div class="video-author">
+              <i class="fa-regular fa-circle-dot" style="color: var(--accent-cyan);"></i> ${video.author}
+            </div>
+          </div>
+        `;
+
+        videoGrid.appendChild(card);
+      });
+    }
+
+    // Abrir Modal de Video
+    function openVideo(video) {
+      youtubeIframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1`;
+      modalTitle.innerText = video.title;
+      modalCategory.innerText = video.tag;
+      videoModal.classList.add('active');
+    }
+
+    // Cerrar Modal
+    function closeVideo() {
+      youtubeIframe.src = "";
+      videoModal.classList.remove('active');
+    }
+
+    // Reproducir Video Destacado del Hero
+    function playFeatured() {
+      openVideo(videosData[0]);
+    }
+
+    // Abrir Video Aleatorio
+    function randomLiminalVideo() {
+      const randomIndex = Math.floor(Math.random() * videosData.length);
+      openVideo(videosData[randomIndex]);
+    }
+
+    // Filtro por Buscador
+    function filterVideos() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = videosData.filter(v => 
+        v.title.toLowerCase().includes(query) || 
+        v.tag.toLowerCase().includes(query) ||
+        v.author.toLowerCase().includes(query)
+      );
+      renderVideos(filtered);
+    }
+
+    // Filtro por Pestañas
+    function filterTab(category) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if(category === 'all') {
+        renderVideos(videosData);
+      } else {
+        const filtered = videosData.filter(v => v.category === category);
+        renderVideos(filtered);
+      }
+    }
+
+    // Cierre al presionar ESC o click fuera del modal
+    window.onclick = function(event) {
+      if (event.target === videoModal) {
+        closeVideo();
+      }
+    }
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeVideo();
+      }
+    });
+
+    // Inicializar
+    renderVideos(videosData);
+  </script>
+</body>
+</html>
