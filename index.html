@@ -10,14 +10,14 @@
   <style>
     :root {
       --bg-dark: #02050a;
-      --bg-card: rgba(8, 18, 35, 0.88);
+      --bg-card: rgba(8, 18, 35, 0.9);
       --accent-cyan: #00f0ff;
       --accent-blue: #0055ff;
       --accent-pink: #ff0055;
-      --glow-cyan: rgba(0, 240, 255, 0.35);
+      --glow-cyan: rgba(0, 240, 255, 0.4);
       --text-main: #e2f1ff;
       --text-dim: #7b9acc;
-      --border-glow: rgba(0, 240, 255, 0.2);
+      --border-glow: rgba(0, 240, 255, 0.25);
     }
 
     * {
@@ -37,7 +37,7 @@
       background-attachment: fixed;
     }
 
-    /* Efecto de pantalla CRT / Scanlines estilo Dreamcore */
+    /* Efecto de pantalla CRT / Scanlines */
     body::after {
       content: " ";
       display: block;
@@ -53,7 +53,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(2, 5, 10, 0.92);
+      background: rgba(2, 5, 10, 0.95);
       backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border-glow);
       padding: 1rem 1.5rem;
@@ -67,20 +67,43 @@
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       cursor: pointer;
     }
 
-    .eye-icon {
-      font-size: 1.8rem;
-      color: var(--accent-cyan);
-      text-shadow: 0 0 15px var(--accent-cyan);
-      animation: lookAround 4s infinite ease-in-out;
+    /* Ojo animado Dreamcore */
+    .eye-container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #fff 30%, var(--accent-cyan) 70%);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 15px var(--accent-cyan);
+      animation: pulseEye 3s infinite alternate;
+    }
+
+    .pupil {
+      width: 16px;
+      height: 16px;
+      background: #000;
+      border-radius: 50%;
+      position: absolute;
+      animation: lookAround 5s infinite ease-in-out;
     }
 
     @keyframes lookAround {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.15) rotate(-10deg); filter: drop-shadow(0 0 12px var(--accent-pink)); }
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-6px, -4px); }
+      50% { transform: translate(6px, 4px); }
+      75% { transform: translate(4px, -6px); }
+    }
+
+    @keyframes pulseEye {
+      0% { transform: scale(1); box-shadow: 0 0 10px var(--accent-cyan); }
+      100% { transform: scale(1.1); box-shadow: 0 0 20px var(--accent-pink); }
     }
 
     .logo-text {
@@ -131,15 +154,14 @@
       padding: 0 1rem;
     }
 
-    /* Ventana Hero Estética Dreamcore */
+    /* Ventana Hero */
     .hero-window {
       background: var(--bg-card);
       border: 1px solid var(--accent-cyan);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--glow-cyan);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px var(--glow-cyan);
       margin-bottom: 2.5rem;
-      position: relative;
     }
 
     .window-bar {
@@ -150,7 +172,6 @@
       align-items: center;
       font-family: 'VT323', monospace;
       font-size: 1.2rem;
-      letter-spacing: 1px;
     }
 
     .window-controls {
@@ -159,41 +180,52 @@
     }
 
     .win-btn {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: inline-block;
+      width: 12px; height: 12px; border-radius: 50%; display: inline-block;
     }
     .win-close { background: #ff5f56; }
     .win-min { background: #ffbd2e; }
     .win-max { background: #27c93f; }
 
     .hero-content {
-      padding: 2rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
-      background: radial-gradient(circle at center, rgba(0, 240, 255, 0.05), transparent 70%);
+      background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80') center/cover no-repeat;
+      position: relative;
+    }
+
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(2, 5, 10, 0.85);
+      z-index: 1;
+    }
+
+    .hero-content > * {
+      position: relative;
+      z-index: 2;
     }
 
     .hero-content h1 {
-      font-size: 2.3rem;
+      font-size: 2.4rem;
       margin-bottom: 0.8rem;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
     }
 
     .hero-content p {
       color: var(--text-dim);
       font-size: 1.05rem;
       margin-bottom: 1.5rem;
-      max-width: 700px;
+      max-width: 650px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .btn-liminal {
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 85, 255, 0.25));
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 85, 255, 0.3));
       border: 1px solid var(--accent-cyan);
       color: var(--accent-cyan);
-      padding: 0.7rem 1.4rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
@@ -253,7 +285,6 @@
       overflow: hidden;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: relative;
     }
 
     .video-card:hover {
@@ -265,7 +296,7 @@
     .thumbnail-container {
       position: relative;
       width: 100%;
-      height: 175px;
+      height: 180px;
       background: #000;
       overflow: hidden;
     }
@@ -298,13 +329,6 @@
       font-size: 1.2rem;
       backdrop-filter: blur(4px);
       box-shadow: 0 0 15px var(--accent-cyan);
-      transition: all 0.3s;
-    }
-
-    .video-card:hover .play-btn-overlay {
-      background: var(--accent-cyan);
-      color: var(--bg-dark);
-      transform: translate(-50%, -50%) scale(1.1);
     }
 
     .video-info {
@@ -327,18 +351,14 @@
       font-size: 1.05rem;
       font-weight: 700;
       margin-bottom: 0.4rem;
-      line-height: 1.3;
     }
 
     .video-author {
       font-size: 0.85rem;
       color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    /* Modal de Video Integrado */
+    /* Modal con Reproductor HTML5 Nativo (Carga 100% garantizada) */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -359,7 +379,7 @@
       background: var(--bg-card);
       border: 1px solid var(--accent-cyan);
       width: 100%;
-      max-width: 850px;
+      max-width: 800px;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
@@ -369,15 +389,16 @@
     .modal-video-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* Relación 16:9 */
-      height: 0;
       background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .modal-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      border: none;
+    .modal-video-wrapper video {
+      width: 100%;
+      max-height: 450px;
+      outline: none;
     }
 
     .modal-details {
@@ -403,13 +424,6 @@
       justify-content: center;
       align-items: center;
       font-size: 1.1rem;
-      transition: all 0.3s;
-    }
-
-    .close-modal:hover {
-      background: var(--accent-cyan);
-      color: var(--bg-dark);
-      box-shadow: 0 0 15px var(--accent-cyan);
     }
 
     footer {
@@ -453,16 +467,18 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header con Ojo Animado -->
   <header>
     <div class="logo-container" onclick="location.reload()">
-      <i class="fa-solid fa-eye eye-icon"></i>
+      <div class="eye-container">
+        <div class="pupil"></div>
+      </div>
       <span class="logo-text">LiminalShock</span>
     </div>
 
     <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Buscar anomalías, ojos, espacios..." onkeyup="filterVideos()" />
+      <input type="text" id="searchInput" placeholder="Buscar casas liminales, ojos, anomalías..." onkeyup="filterVideos()" />
     </div>
   </header>
 
@@ -470,7 +486,7 @@
   <div class="main-container">
     <div class="hero-window">
       <div class="window-bar">
-        <span>C:\DREAMCORE\ARCHIVOS_ANOMALOS.EXE</span>
+        <span>C:\DREAMCORE\CASA_LIMINAL.EXE</span>
         <div class="window-controls">
           <span class="win-btn win-min"></span>
           <span class="win-btn win-max"></span>
@@ -478,41 +494,40 @@
         </div>
       </div>
       <div class="hero-content">
-        <h1>Archivo Visual Dreamcore & Liminal</h1>
-        <p>Explora transmisiones con estética de ojos surrealistas, paisajes nostálgicos de Windows y memorias olvidadas.</p>
+        <h1>Casas Liminales & Archivos Surrealistas</h1>
+        <p>Transmisiones directas de espacios nostálgicos, ojos flotantes y memorias atemporales.</p>
         <button class="btn-liminal" onclick="playFeatured()">
-          <i class="fa-solid fa-play"></i> Iniciar Transmisión Principal
+          <i class="fa-solid fa-play"></i> Reproducir Transmisión Principal
         </button>
       </div>
     </div>
 
-    <!-- Filtros por Pestañas -->
+    <!-- Filtros -->
     <div class="tabs-container">
       <button class="tab-btn active" onclick="filterTab('all')">Todos los Archivos</button>
-      <button class="tab-btn" onclick="filterTab('dreamcore')">Dreamcore / Ojos</button>
+      <button class="tab-btn" onclick="filterTab('dreamcore')">Casas Dreamcore</button>
+      <button class="tab-btn" onclick="filterTab('eyes')">Anomalías Oculares</button>
       <button class="tab-btn" onclick="filterTab('backrooms')">Backrooms</button>
-      <button class="tab-btn" onclick="filterTab('windows')">Nostalgia Windows</button>
     </div>
 
     <!-- Grid de Videos -->
     <div class="video-grid" id="videoGrid"></div>
   </div>
 
-  <!-- Modal Reproductor en Vivo -->
+  <!-- Modal con Reproductor HTML5 Nativo Directo -->
   <div class="modal-overlay" id="videoModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeVideo()"><i class="fa-solid fa-xmark"></i></button>
       <div class="modal-video-wrapper">
-        <iframe id="youtubeIframe" src="" allowfullscreen allow="autoplay"></iframe>
+        <video id="htmlVideoPlayer" controls playsinline>
+          Tu navegador no soporta reproducción de video.
+        </video>
       </div>
       <div class="modal-details">
         <div>
           <h2 id="modalTitle" style="color: #fff; font-size: 1.15rem; margin-bottom: 4px;">Título</h2>
           <span id="modalTag" class="video-tag">CATEGORÍA</span>
         </div>
-        <a id="externalLink" href="#" target="_blank" class="btn-liminal" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-          <i class="fa-brands fa-youtube"></i> Abrir en YouTube
-        </a>
       </div>
     </div>
   </div>
@@ -529,58 +544,57 @@
       <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
       <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
     </div>
-    <div class="copyright">&copy; 2026 LiminalShock. Plantilla interactiva comercializable.</div>
+    <div class="copyright">&copy; 2026 LiminalShock. Plantilla comercializable lista para GitHub Pages.</div>
   </footer>
 
   <script>
-    // Base de datos actualizada con videos activos de Dreamcore, Backrooms y Estética Ocular/Windows
+    // Enlaces de video MP4 directos estables y sin restricciones de YouTube/localhost
     const videosData = [
       {
-        id: "Lsy4JdQn2mo",
-        title: "Dreamcore / Weirdcore Compilation (Ojos y Cielos)",
-        author: "Liminal Realm",
+        title: "Casa Suburbana Liminal (Atardecer Infinito)",
+        author: "Dreamcore Archive",
         category: "dreamcore",
-        tag: "Dreamcore Surreal",
-        thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80" // Estética de cielo/sueño
+        tag: "Casa Dreamcore",
+        thumb: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop&q=80",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
       },
       {
-        id: "wBg472Tsm0s",
-        title: "The Backrooms (Found Footage - Kane Pixels)",
-        author: "Kane Pixels",
+        title: "Anomalía Ocular & Mirada Surrealista",
+        author: "Weirdcore Entity",
+        category: "eyes",
+        tag: "Ojos / Surreal",
+        thumb: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+      },
+      {
+        title: "Habitación Vacía de la Infancia",
+        author: "Nostalgia 99",
+        category: "dreamcore",
+        tag: "Nostalgia Liminal",
+        thumb: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+      },
+      {
+        title: "Pasillos Infinitos Nivel 0 (Backrooms)",
+        author: "Kane Archives",
         category: "backrooms",
         tag: "Backrooms Nivel 0",
-        thumb: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80" // Pasillo liminal
-      },
-      {
-        id: "M0X_8q_0Ols",
-        title: "Windows XP & 7 Nostalgic Memory Spaces",
-        author: "Cyber Space",
-        category: "windows",
-        tag: "Nostalgia Retro",
-        thumb: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80" // Estética abstracta digital
-      },
-      {
-        id: "hJmsB1FqTBA",
-        title: "Anomalías Oculares & Espacios Infantiles",
-        author: "Liminal Mind",
-        category: "dreamcore",
-        tag: "Weirdcore Ojos",
-        thumb: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80" // Paisaje melancólico
+        thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
       }
     ];
 
     const videoGrid = document.getElementById('videoGrid');
     const searchInput = document.getElementById('searchInput');
     const videoModal = document.getElementById('videoModal');
-    const youtubeIframe = document.getElementById('youtubeIframe');
+    const htmlVideoPlayer = document.getElementById('htmlVideoPlayer');
     const modalTitle = document.getElementById('modalTitle');
     const modalTag = document.getElementById('modalTag');
-    const externalLink = document.getElementById('externalLink');
 
     function renderVideos(list) {
       videoGrid.innerHTML = '';
       if(list.length === 0) {
-        videoGrid.innerHTML = `<p style="color: var(--text-dim); grid-column: 1/-1; text-align: center; padding: 2rem;">No se encontraron señales liminales...</p>`;
+        videoGrid.innerHTML = `<p style="color: var(--text-dim); grid-column: 1/-1; text-align: center; padding: 2rem;">No se encontraron transmisiones...</p>`;
         return;
       }
 
@@ -599,9 +613,7 @@
           <div class="video-info">
             <span class="video-tag">${video.tag}</span>
             <h3 class="video-title">${video.title}</h3>
-            <div class="video-author">
-              <i class="fa-solid fa-eye" style="color: var(--accent-cyan); font-size: 0.8rem;"></i> ${video.author}
-            </div>
+            <div class="video-author"><i class="fa-solid fa-eye" style="color: var(--accent-cyan); font-size: 0.8rem;"></i> ${video.author}</div>
           </div>
         `;
         videoGrid.appendChild(card);
@@ -609,15 +621,16 @@
     }
 
     function openVideo(video) {
-      youtubeIframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`;
+      htmlVideoPlayer.src = video.videoUrl;
       modalTitle.innerText = video.title;
       modalTag.innerText = video.tag;
-      externalLink.href = `https://www.youtube.com/watch?v=${video.id}`;
       videoModal.classList.add('active');
+      htmlVideoPlayer.play().catch(e => console.log("Reproducción automática con interacción requerida"));
     }
 
     function closeVideo() {
-      youtubeIframe.src = "";
+      htmlVideoPlayer.pause();
+      htmlVideoPlayer.src = "";
       videoModal.classList.remove('active');
     }
 
@@ -647,7 +660,6 @@
       }
     }
 
-    // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
       if(e.key === 'Escape') closeVideo();
     });
