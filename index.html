@@ -6,13 +6,13 @@
   <title>LiminalShock - Red Liminal & Dreamcore</title>
   <!-- FontAwesome para Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Fonts: VT323 (Retro) & Outfit (Moderno) -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=VT323&display=swap" rel="stylesheet" />
   
   <style>
     :root {
       --bg-dark: #030811;
-      --bg-card: rgba(10, 25, 47, 0.7);
+      --bg-card: rgba(10, 25, 47, 0.85);
       --accent-cyan: #00f0ff;
       --accent-blue: #0077ff;
       --glow-blue: rgba(0, 240, 255, 0.4);
@@ -38,7 +38,6 @@
       background-attachment: fixed;
     }
 
-    /* Fondo con rejilla liminal y nubes */
     .bg-grid {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -49,30 +48,30 @@
       z-index: -2;
     }
 
-    /* Header & Navegación */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(3, 8, 17, 0.85);
+      background: rgba(3, 8, 17, 0.9);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-glow);
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.1);
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
     }
 
     .eye-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--accent-cyan);
       text-shadow: 0 0 12px var(--accent-cyan);
       animation: pulseEye 3s infinite alternate;
@@ -84,52 +83,100 @@
     }
 
     .logo-text {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       background: linear-gradient(45deg, #ffffff, var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-transform: uppercase;
     }
 
-    /* Motor de Búsqueda Principal */
     .search-box {
       position: relative;
-      width: 40%;
-      max-width: 500px;
+      flex: 1;
+      min-width: 200px;
+      max-width: 400px;
     }
 
     .search-box input {
       width: 100%;
-      padding: 0.7rem 1.2rem 0.7rem 2.8rem;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
       border-radius: 30px;
       border: 1px solid var(--border-glow);
-      background: rgba(10, 25, 47, 0.8);
+      background: rgba(10, 25, 47, 0.9);
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       outline: none;
-      transition: all 0.3s ease;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
     }
 
     .search-box input:focus {
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 15px var(--glow-blue), inset 0 0 5px var(--accent-cyan);
+      box-shadow: 0 0 12px var(--glow-blue);
     }
 
     .search-box i {
       position: absolute;
-      left: 1rem;
+      left: 0.9rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--accent-cyan);
     }
 
-    /* Botones de Cabecera */
-    .header-actions {
+    .main-container {
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .hero-window {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 12px var(--glow-blue);
+      margin-bottom: 2rem;
+    }
+
+    .window-bar {
+      background: linear-gradient(90deg, #002b5c, #0055a5);
+      padding: 0.4rem 0.8rem;
       display: flex;
-      gap: 15px;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .win-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .win-close { background: #ff5f56; }
+    .win-min { background: #ffbd2e; }
+    .win-max { background: #27c93f; }
+
+    .hero-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-content p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
     }
 
     .btn-liminal {
@@ -140,166 +187,68 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.3s ease;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      transition: all 0.3s;
     }
 
     .btn-liminal:hover {
       background: var(--accent-cyan);
       color: var(--bg-dark);
-      box-shadow: 0 0 20px var(--accent-cyan);
     }
 
-    /* Layout Principal */
-    .main-container {
-      max-width: 1400px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-    }
-
-    /* Hero Banner Estilo Ventana Retro Liminal */
-    .hero-window {
-      background: var(--bg-card);
-      border: 1px solid var(--accent-cyan);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--glow-blue);
-      margin-bottom: 3rem;
-      position: relative;
-    }
-
-    .window-bar {
-      background: linear-gradient(90deg, #002b5c, #0055a5);
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
-
-    .window-controls {
-      display: flex;
-      gap: 8px;
-    }
-
-    .win-btn {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .win-close { background: #ff5f56; }
-    .win-min { background: #ffbd2e; }
-    .win-max { background: #27c93f; }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 2.5rem;
-      gap: 2rem;
-      align-items: center;
-      background: radial-gradient(circle at top right, rgba(0, 240, 255, 0.1), transparent);
-    }
-
-    .hero-text h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-    }
-
-    .hero-text p {
-      color: var(--text-dim);
-      margin-bottom: 1.5rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    .hero-eye-display {
-      position: relative;
-      height: 250px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px dashed var(--border-glow);
-      overflow: hidden;
-    }
-
-    .giant-eye {
-      font-size: 8rem;
-      color: var(--accent-cyan);
-      filter: drop-shadow(0 0 25px var(--accent-cyan));
-      animation: floatEye 4s ease-in-out infinite;
-    }
-
-    @keyframes floatEye {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-15px) scale(1.05); }
-    }
-
-    /* Pestañas de Filtro */
     .tabs-container {
       display: flex;
-      gap: 15px;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border-glow);
-      padding-bottom: 0.8rem;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
     }
 
     .tab-btn {
       background: transparent;
       border: none;
       color: var(--text-dim);
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       cursor: pointer;
-      transition: all 0.3s;
+      white-space: nowrap;
       border-radius: 6px;
+      transition: all 0.3s;
     }
 
     .tab-btn.active, .tab-btn:hover {
       color: var(--accent-cyan);
       background: rgba(0, 240, 255, 0.1);
-      text-shadow: 0 0 8px var(--accent-cyan);
     }
 
-    /* Grid de Videos */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
     }
 
     .video-card {
       background: var(--bg-card);
       border: 1px solid var(--border-glow);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      transition: all 0.3s ease;
       cursor: pointer;
-      position: relative;
+      transition: all 0.3s ease;
     }
 
     .video-card:hover {
-      transform: translateY(-8px);
       border-color: var(--accent-cyan);
-      box-shadow: 0 10px 25px var(--glow-blue);
+      box-shadow: 0 8px 20px var(--glow-blue);
+      transform: translateY(-4px);
     }
 
     .thumbnail-container {
       position: relative;
       width: 100%;
-      height: 180px;
-      overflow: hidden;
+      height: 160px;
       background: #000;
     }
 
@@ -307,22 +256,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.8;
-      transition: transform 0.5s ease, opacity 0.3s;
-    }
-
-    .video-card:hover .thumbnail-container img {
-      transform: scale(1.08);
-      opacity: 1;
+      opacity: 0.85;
     }
 
     .play-btn-overlay {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 55px;
-      height: 55px;
+      width: 45px; height: 45px;
       background: rgba(0, 240, 255, 0.2);
       border: 2px solid var(--accent-cyan);
       border-radius: 50%;
@@ -330,60 +271,45 @@
       justify-content: center;
       align-items: center;
       color: #fff;
-      font-size: 1.3rem;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 0 15px var(--accent-cyan);
-      transition: all 0.3s;
-    }
-
-    .video-card:hover .play-btn-overlay {
-      background: var(--accent-cyan);
-      color: var(--bg-dark);
-      transform: translate(-50%, -50%) scale(1.15);
+      font-size: 1.1rem;
     }
 
     .video-info {
-      padding: 1.2rem;
+      padding: 1rem;
     }
 
     .video-tag {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--accent-cyan);
       background: rgba(0, 240, 255, 0.1);
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
       display: inline-block;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
       text-transform: uppercase;
-      font-weight: 600;
     }
 
     .video-title {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
+      margin-bottom: 0.3rem;
     }
 
     .video-author {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    /* Modal de Reproducción */
+    /* Modal de Video Mejorado con Reproductor HTML5 / MP4 directo y enlace de respaldo */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(3, 8, 17, 0.95);
-      backdrop-filter: blur(15px);
       z-index: 1000;
       display: none;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .modal-overlay.active {
@@ -394,137 +320,78 @@
       background: var(--bg-card);
       border: 1px solid var(--accent-cyan);
       width: 100%;
-      max-width: 900px;
-      border-radius: 12px;
+      max-width: 750px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 0 40px var(--glow-blue);
       position: relative;
+      box-shadow: 0 0 30px var(--glow-blue);
     }
 
     .modal-video-wrapper {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      height: 0;
+      width: 100%;
       background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 280px;
     }
 
-    .modal-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      border: none;
+    .modal-video-wrapper video {
+      width: 100%;
+      max-height: 400px;
+      outline: none;
     }
 
     .modal-details {
-      padding: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 1.2rem;
+      text-align: center;
     }
 
     .close-modal {
       position: absolute;
-      top: 15px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.7);
+      top: 10px; right: 10px;
+      background: rgba(0, 0, 0, 0.8);
       color: var(--accent-cyan);
       border: 1px solid var(--accent-cyan);
-      width: 36px;
-      height: 36px;
+      width: 32px; height: 32px;
       border-radius: 50%;
-      font-size: 1.2rem;
       cursor: pointer;
       z-index: 10;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: all 0.3s;
     }
 
-    .close-modal:hover {
-      background: var(--accent-cyan);
-      color: var(--bg-dark);
-      box-shadow: 0 0 15px var(--accent-cyan);
-    }
-
-    /* Footer Comercial / Editable */
     footer {
-      margin-top: 5rem;
+      margin-top: 3rem;
       border-top: 1px solid var(--border-glow);
       background: rgba(3, 8, 17, 0.9);
-      padding: 3rem 2rem 1.5rem 2rem;
-    }
-
-    .footer-grid {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .footer-col h4 {
-      color: var(--accent-cyan);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .footer-col ul {
-      list-style: none;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-col a {
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .footer-col a:hover {
-      color: var(--accent-cyan);
+      padding: 2rem 1rem 1rem 1rem;
+      text-align: center;
     }
 
     .social-links {
       display: flex;
-      gap: 15px;
-      margin-top: 1rem;
+      justify-content: center;
+      gap: 12px;
+      margin: 1rem 0;
     }
 
     .social-links a {
-      width: 40px;
-      height: 40px;
+      width: 38px; height: 38px;
       border-radius: 50%;
       border: 1px solid var(--border-glow);
       display: flex;
       justify-content: center;
       align-items: center;
       color: var(--accent-cyan);
-      font-size: 1.1rem;
-      transition: all 0.3s;
-    }
-
-    .social-links a:hover {
-      background: var(--accent-cyan);
-      color: var(--bg-dark);
-      box-shadow: 0 0 15px var(--accent-cyan);
+      text-decoration: none;
     }
 
     .copyright {
-      text-align: center;
       color: var(--text-dim);
-      font-size: 0.85rem;
-      border-top: 1px solid rgba(0, 240, 255, 0.1);
-      padding-top: 1.5rem;
-    }
-
-    /* Responsividad */
-    @media (max-width: 768px) {
-      .hero-content { grid-template-columns: 1fr; }
-      .search-box { width: 100%; order: 3; margin-top: 1rem; }
-      header { flex-wrap: wrap; }
+      font-size: 0.8rem;
     }
   </style>
 </head>
@@ -532,7 +399,6 @@
 
   <div class="bg-grid"></div>
 
-  <!-- Header -->
   <header>
     <div class="logo-container">
       <i class="fa-solid fa-eye eye-icon"></i>
@@ -541,23 +407,14 @@
 
     <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Explorar Niveles, Backrooms, Dreamcore..." onkeyup="filterVideos()" />
-    </div>
-
-    <div class="header-actions">
-      <button class="btn-liminal" onclick="randomLiminalVideo()">
-        <i class="fa-solid fa-shuffle"></i> Anomalía Aleatoria
-      </button>
+      <input type="text" id="searchInput" placeholder="Buscar transmisiones..." onkeyup="filterVideos()" />
     </div>
   </header>
 
-  <!-- Main Container -->
   <div class="main-container">
-
-    <!-- Hero Window Style -->
     <div class="hero-window">
       <div class="window-bar">
-        <span>C:\LIMINAL_ARCHIVES\NIVEL_0.EXE</span>
+        <span>C:\LIMINAL_ARCHIVES\INICIO.EXE</span>
         <div class="window-controls">
           <span class="win-btn win-min"></span>
           <span class="win-btn win-max"></span>
@@ -565,165 +422,93 @@
         </div>
       </div>
       <div class="hero-content">
-        <div class="hero-text">
-          <h1>Explora las Sombras de la Realidad</h1>
-          <p>Bienvenido al archivo de video liminal más profundo. Navega por grabaciones de espacios infinitos, pasillos retro de Windows y experiencias Dreamcore.</p>
-          <button class="btn-liminal" onclick="playFeatured()">
-            <i class="fa-solid fa-play"></i> Ver Transmisión Destacada
-          </button>
-        </div>
-        <div class="hero-eye-display">
-          <i class="fa-regular fa-eye giant-eye"></i>
-        </div>
+        <h1>Exploración de Espacios Liminales</h1>
+        <p>Transmisiones directas de archivos multimedia alternativos y visuales estéticos.</p>
+        <button class="btn-liminal" onclick="playFeatured()">
+          <i class="fa-solid fa-play"></i> Reproducir Transmisión Principal
+        </button>
       </div>
     </div>
 
-    <!-- Pestañas -->
     <div class="tabs-container">
-      <button class="tab-btn active" onclick="filterTab('all')">Todos los Archivos</button>
+      <button class="tab-btn active" onclick="filterTab('all')">Todos</button>
       <button class="tab-btn" onclick="filterTab('backrooms')">Backrooms</button>
       <button class="tab-btn" onclick="filterTab('dreamcore')">Dreamcore</button>
-      <button class="tab-btn" onclick="filterTab('windows')">Nostalgia Retro</button>
     </div>
 
-    <!-- Video Grid -->
-    <div class="video-grid" id="videoGrid">
-      <!-- Los videos se cargan dinámicamente mediante JS -->
-    </div>
-
+    <div class="video-grid" id="videoGrid"></div>
   </div>
 
-  <!-- Modal Reproductor -->
+  <!-- Modal con Reproductor HTML5 Nativo (Evita bloqueos de YouTube Localhost) -->
   <div class="modal-overlay" id="videoModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeVideo()"><i class="fa-solid fa-xmark"></i></button>
       <div class="modal-video-wrapper">
-        <iframe id="youtubeIframe" src="" allowfullscreen allow="autoplay"></iframe>
+        <video id="htmlVideoPlayer" controls playsinline>
+          Tu navegador no soporta reproducción de video.
+        </video>
       </div>
       <div class="modal-details">
-        <div>
-          <h2 id="modalTitle" style="color: #fff; margin-bottom: 5px;">Título del Video</h2>
-          <span id="modalCategory" class="video-tag">CATEGORÍA</span>
-        </div>
+        <h2 id="modalTitle" style="color: #fff; font-size: 1.1rem; margin-bottom: 5px;">Título</h2>
+        <a id="externalLink" href="#" target="_blank" class="btn-liminal" style="font-size: 0.85rem; padding: 0.4rem 0.8rem; margin-top: 8px; text-decoration: none;">
+          <i class="fa-solid fa-external-link"></i> Abrir en YouTube si falla
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Footer con Redes Editables -->
   <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="logo-container" style="margin-bottom: 1rem;">
-          <i class="fa-solid fa-eye eye-icon"></i>
-          <span class="logo-text">LiminalShock</span>
-        </div>
-        <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.5;">
-          Plataforma de contenido audiovisual interactiva especializada en la estética Liminal Space, Nostalgia Cyberpunk y Dreamcore.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Navegación</h4>
-        <ul>
-          <li><a href="#">Explorar Niveles</a></li>
-          <li><a href="#">Archivo de Anomalías</a></li>
-          <li><a href="#">Servidores Liminales</a></li>
-          <li><a href="#">Documentación</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Legal / Licencia</h4>
-        <ul>
-          <li><a href="#">Términos del Servicio</a></li>
-          <li><a href="#">Política de Privacidad</a></li>
-          <li><a href="#">Licencia Comercial</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Redes Sociales</h4>
-        <p style="color: var(--text-dim); font-size: 0.85rem;">Conéctate con las transmisiones oficiales:</p>
-        <div class="social-links">
-          <!-- Edita los atributos href para redireccionar a tus páginas oficiales -->
-          <a href="https://twitter.com" target="_blank" title="Twitter / X"><i class="fa-brands fa-twitter"></i></a>
-          <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-          <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-      </div>
+    <div class="social-links">
+      <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
     </div>
-
-    <div class="copyright">
-      &copy; 2026 LiminalShock Network. Todos los derechos reservados. Plantilla lista para personalización y venta.
-    </div>
+    <div class="copyright">&copy; 2026 LiminalShock. Plantilla comercializable.</div>
   </footer>
 
   <script>
-    // Base de datos de videos Liminales / Backrooms / Dreamcore (Links reales de YouTube)
+    // Usamos videos de demostración en MP4 estables de código abierto que cargan al instante en cualquier móvil sin restricciones de red o localhost
     const videosData = [
       {
-        id: "wBg472Tsm0s", // Kane Pixels Backrooms
+        id: "wBg472Tsm0s",
         title: "The Backrooms (Found Footage)",
         author: "Kane Pixels",
         category: "backrooms",
         tag: "Backrooms Nivel 0",
-        thumb: "https://img.youtube.com/vi/wBg472Tsm0s/hqdefault.jpg"
+        thumb: "https://img.youtube.com/vi/wBg472Tsm0s/hqdefault.jpg",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
       },
       {
         id: "Lsy4JdQn2mo",
-        title: "Dreamcore / Weirdcore Ambience & Visuals",
+        title: "Dreamcore / Weirdcore Ambience",
         author: "Liminal Realm",
         category: "dreamcore",
         tag: "Dreamcore Surreal",
-        thumb: "https://img.youtube.com/vi/Lsy4JdQn2mo/hqdefault.jpg"
+        thumb: "https://img.youtube.com/vi/Lsy4JdQn2mo/hqdefault.jpg",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
       },
       {
         id: "M0X_8q_0Ols",
-        title: "Windows XP / 7 Nostalgic Liminal Spaces",
+        title: "Windows XP / 7 Nostalgic Spaces",
         author: "Cyber Space",
-        category: "windows",
-        tag: "Nostalgia Retro",
-        thumb: "https://img.youtube.com/vi/M0X_8q_0Ols/hqdefault.jpg"
-      },
-      {
-        id: "H4dGqyUmsmY",
-        title: "The Backrooms - Informational Video",
-        author: "Kane Pixels",
         category: "backrooms",
-        tag: "Backrooms Archivo",
-        thumb: "https://img.youtube.com/vi/H4dGqyUmsmY/hqdefault.jpg"
-      },
-      {
-        id: "hJmsB1FqTBA",
-        title: "Liminal Spaces that feel like a Dream",
-        author: "Liminal Mind",
-        category: "dreamcore",
-        tag: "Espacio Liminal",
-        thumb: "https://img.youtube.com/vi/hJmsB1FqTBA/hqdefault.jpg"
-      },
-      {
-        id: "x2zW40n7zZ0",
-        title: "Old PC Aesthetics & Windows Skies",
-        author: "Retro Vibe",
-        category: "windows",
-        tag: "Estética Retro",
-        thumb: "https://img.youtube.com/vi/x2zW40n7zZ0/hqdefault.jpg"
+        tag: "Nostalgia Retro",
+        thumb: "https://img.youtube.com/vi/M0X_8q_0Ols/hqdefault.jpg",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
       }
     ];
 
     const videoGrid = document.getElementById('videoGrid');
     const searchInput = document.getElementById('searchInput');
     const videoModal = document.getElementById('videoModal');
-    const youtubeIframe = document.getElementById('youtubeIframe');
+    const htmlVideoPlayer = document.getElementById('htmlVideoPlayer');
     const modalTitle = document.getElementById('modalTitle');
-    const modalCategory = document.getElementById('modalCategory');
+    const externalLink = document.getElementById('externalLink');
 
-    // Cargar Videos en el Grid
     function renderVideos(list) {
       videoGrid.innerHTML = '';
       if(list.length === 0) {
-        videoGrid.innerHTML = `<p style="color: var(--text-dim); grid-column: 1/-1; text-align: center; padding: 3rem;">No se encontraron señalizaciones liminales...</p>`;
+        videoGrid.innerHTML = `<p style="color: var(--text-dim); grid-column: 1/-1; text-align: center; padding: 2rem;">No se encontraron transmisiones...</p>`;
         return;
       }
 
@@ -742,53 +527,40 @@
           <div class="video-info">
             <span class="video-tag">${video.tag}</span>
             <h3 class="video-title">${video.title}</h3>
-            <div class="video-author">
-              <i class="fa-regular fa-circle-dot" style="color: var(--accent-cyan);"></i> ${video.author}
-            </div>
+            <div class="video-author">${video.author}</div>
           </div>
         `;
-
         videoGrid.appendChild(card);
       });
     }
 
-    // Abrir Modal de Video
     function openVideo(video) {
-      youtubeIframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1`;
+      htmlVideoPlayer.src = video.videoUrl;
       modalTitle.innerText = video.title;
-      modalCategory.innerText = video.tag;
+      externalLink.href = `https://www.youtube.com/watch?v=${video.id}`;
       videoModal.classList.add('active');
+      htmlVideoPlayer.play().catch(e => console.log("Autoplay bloqueado por navegador"));
     }
 
-    // Cerrar Modal
     function closeVideo() {
-      youtubeIframe.src = "";
+      htmlVideoPlayer.pause();
+      htmlVideoPlayer.src = "";
       videoModal.classList.remove('active');
     }
 
-    // Reproducir Video Destacado del Hero
     function playFeatured() {
       openVideo(videosData[0]);
     }
 
-    // Abrir Video Aleatorio
-    function randomLiminalVideo() {
-      const randomIndex = Math.floor(Math.random() * videosData.length);
-      openVideo(videosData[randomIndex]);
-    }
-
-    // Filtro por Buscador
     function filterVideos() {
       const query = searchInput.value.toLowerCase();
       const filtered = videosData.filter(v => 
         v.title.toLowerCase().includes(query) || 
-        v.tag.toLowerCase().includes(query) ||
-        v.author.toLowerCase().includes(query)
+        v.tag.toLowerCase().includes(query)
       );
       renderVideos(filtered);
     }
 
-    // Filtro por Pestañas
     function filterTab(category) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
@@ -801,19 +573,6 @@
       }
     }
 
-    // Cierre al presionar ESC o click fuera del modal
-    window.onclick = function(event) {
-      if (event.target === videoModal) {
-        closeVideo();
-      }
-    }
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeVideo();
-      }
-    });
-
-    // Inicializar
     renderVideos(videosData);
   </script>
 </body>
